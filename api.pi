@@ -1,0 +1,19 @@
+from flask import Flask, request, jsonify
+import requests
+
+app = Flask(__name__)
+
+@app.route("/unshort", methods=["GET"])
+def unshort():
+    url = request.args.get("url")
+    if not url:
+        return jsonify({"error": "URL missing"}), 400
+
+    try:
+        response = requests.get(url, allow_redirects=True, timeout=10)
+        return jsonify({"final": response.url})
+    except:
+        return jsonify({"error": "Invalid or blocked URL"}), 400
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
