@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vyomex Unshortener - Free URL Redirect Resolver</title>
+
+<style>
+body { font-family: Arial, sans-serif; background:#f3f4f6; padding:20px; }
+.container { max-width:600px; margin:auto; background:white; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+input { width:100%; padding:12px; margin-top:10px; font-size:18px; }
+button { width:100%; padding:12px; font-size:18px; background:#111; color:white; border:none; border-radius:8px; cursor:pointer; margin-top:10px; }
+button:hover { background:#333; }
+#output { margin-top:20px; padding:10px; background:#e6ffe6; border-radius:8px; font-size:18px; color:#003300; }
+h2 { text-align:center; }
+</style>
+</head>
+
+<body>
+
+<!-- Adsterra Top Banner -->
+<script type="text/javascript">
+atOptions = {
+'key' : 'a162d6aedca05a560910b31e0d3d8bce',
+'format' : 'iframe',
+'height' : 90,
+'width' : 728,
+'params' : {}
+};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/a162d6aedca05a560910b31e0d3d8bce/invoke.js"></script>
+<br>
+
+<div class="container">
+<h2>Vyomex Unshortener</h2>
+<p>Paste any short URL (bit.ly, t.co, adf.ly, etc) and reveal the final destination safely.</p>
+
+<input type="text" id="urlInput" placeholder="Enter shortened URL..." />
+<button onclick="unshort()">Unshort Now</button>
+
+<div id="output" style="display:none;"></div>
+</div>
+
+<br>
+<!-- Adsterra Bottom Banner -->
+<script type="text/javascript">
+atOptions = {
+'key' : 'a162d6aedca05a560910b31e0d3d8bce',
+'format' : 'iframe',
+'height' : 90,
+'width' : 728,
+'params' : {}
+};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/a162d6aedca05a560910b31e0d3d8bce/invoke.js"></script>
+
+<script>
+async function unshort() {
+    const url = document.getElementById("urlInput").value;
+    const output = document.getElementById("output");
+
+    if(!url){
+        output.innerHTML = "Please enter URL";
+        output.style.display = "block";
+        return;
+    }
+
+    try {
+        const response = await fetch('https://protein-today-readily-prompt.trycloudflare.com/unshort?url=' + encodeURIComponent(url));
+        const data = await response.json();
+        output.style.display = "block";
+        output.innerHTML = 'Final URL: <a href="' + data.final + '" target="_blank">' + data.final + '</a>';
+    } catch (err) {
+        output.innerHTML = "Error resolving the URL!";
+        output.style.display = "block";
+    }
+}
+</script>
+
+</body>
+</html>
